@@ -10,7 +10,7 @@ namespace Restaurant_table_control_api.Entity
         public int Id {get; set;}
         public string Description {get; set;}
 
-        public Table Tables {get; set;}
+        public TableM Tables {get; set;}
         public int TablesId {get; set;}
 
     }
