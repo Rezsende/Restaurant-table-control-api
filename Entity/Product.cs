@@ -9,7 +9,7 @@ namespace Restaurant_table_control_api.Entity
     {
         public int Id {get; set;}
         public string? Barcode {get; set;}
-        public string? Description {get; set;}
+        public string? Desc {get; set;}
         public double? Purchase_Price {get; set;}
         public double? Sale_Price {get; set;}
         public int? Stock {get; set;}

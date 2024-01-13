@@ -1,6 +1,0 @@
-@Restaurant_table_control_api_HostAddress = http://localhost:5273
-
-GET {{Restaurant_table_control_api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

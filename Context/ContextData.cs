@@ -9,15 +9,12 @@ namespace Restaurant_table_control_api.Context
 {
     public class ContextData : DbContext
     {
-        public ContextData(DbContextOptions<ContextData> options): base(options)
+        public ContextData(DbContextOptions<ContextData> options) : base(options)
         {
-            
+
         }
-
-        DbSet<Client> Clients {get; set;}
-
-
-     
-
+        public DbSet<Client> Clients_Entity { get; set; }
+        public DbSet<Command> Commands_Entity { get; set; }
+        public DbSet<Product> Product_Entity { get; set; }
     }
 }
