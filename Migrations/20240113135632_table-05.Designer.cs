@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_table_control_api.Context;
 
@@ -11,9 +12,11 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    partial class ContextDataModelSnapshot : ModelSnapshot
+    [Migration("20240113135632_table-05")]
+    partial class table05
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,12 +79,12 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductsID")
+                    b.Property<int?>("productsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductsID");
+                    b.HasIndex("productsId");
 
                     b.ToTable("Commands_Entity");
                 });
@@ -119,16 +122,11 @@ namespace Restauranttablecontrolapi.Migrations
 
             modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
                 {
-                    b.HasOne("Restaurant_table_control_api.Entity.Product", "Products")
-                        .WithMany("Commands")
-                        .HasForeignKey("ProductsID");
+                    b.HasOne("Restaurant_table_control_api.Entity.Product", "products")
+                        .WithMany()
+                        .HasForeignKey("productsId");
 
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
-                {
-                    b.Navigation("Commands");
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

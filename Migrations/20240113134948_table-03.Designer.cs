@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_table_control_api.Context;
 
@@ -11,9 +12,11 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    partial class ContextDataModelSnapshot : ModelSnapshot
+    [Migration("20240113134948_table-03")]
+    partial class table03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,12 +79,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductsID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsID");
 
                     b.ToTable("Commands_Entity");
                 });
@@ -112,23 +110,25 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
+                    b.Property<int>("commandId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("commandId");
 
                     b.ToTable("Product_Entity");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
-                {
-                    b.HasOne("Restaurant_table_control_api.Entity.Product", "Products")
-                        .WithMany("Commands")
-                        .HasForeignKey("ProductsID");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
                 {
-                    b.Navigation("Commands");
+                    b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
+                        .WithMany()
+                        .HasForeignKey("commandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("command");
                 });
 #pragma warning restore 612, 618
         }

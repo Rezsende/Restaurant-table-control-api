@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_table_control_api.Context;
 
@@ -11,9 +12,11 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    partial class ContextDataModelSnapshot : ModelSnapshot
+    [Migration("20240113135055_table-04")]
+    partial class table04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,12 +79,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductsID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsID");
 
                     b.ToTable("Commands_Entity");
                 });
@@ -115,20 +113,6 @@ namespace Restauranttablecontrolapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product_Entity");
-                });
-
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
-                {
-                    b.HasOne("Restaurant_table_control_api.Entity.Product", "Products")
-                        .WithMany("Commands")
-                        .HasForeignKey("ProductsID");
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
-                {
-                    b.Navigation("Commands");
                 });
 #pragma warning restore 612, 618
         }
