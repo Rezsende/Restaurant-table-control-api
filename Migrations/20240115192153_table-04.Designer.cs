@@ -12,8 +12,8 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    [Migration("20240113133248_table-01")]
-    partial class table01
+    [Migration("20240115192153_table-04")]
+    partial class table04
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace Restauranttablecontrolapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Desc")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -95,7 +95,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Desc")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Expiration_Date")
@@ -113,6 +113,53 @@ namespace Restauranttablecontrolapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product_Entity");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Barcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataSales")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Qtd")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Sale_Price")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("commandId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("commandId");
+
+                    b.ToTable("ProductDetails_Entity");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
+                {
+                    b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
+                        .WithMany("productDetails")
+                        .HasForeignKey("commandId");
+
+                    b.Navigation("command");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
+                {
+                    b.Navigation("productDetails");
                 });
 #pragma warning restore 612, 618
         }

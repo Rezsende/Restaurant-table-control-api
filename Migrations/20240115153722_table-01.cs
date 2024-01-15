@@ -39,7 +39,7 @@ namespace Restauranttablecontrolapi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace Restauranttablecontrolapi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PurchasePrice = table.Column<double>(name: "Purchase_Price", type: "float", nullable: true),
                     SalePrice = table.Column<double>(name: "Sale_Price", type: "float", nullable: true),
                     Stock = table.Column<int>(type: "int", nullable: true),
@@ -63,6 +63,42 @@ namespace Restauranttablecontrolapi.Migrations
                 {
                     table.PrimaryKey("PK_Product_Entity", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ProductDetails_Entity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    productId = table.Column<int>(type: "int", nullable: true),
+                    commandId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductDetails_Entity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Entity_Commands_Entity_commandId",
+                        column: x => x.commandId,
+                        principalTable: "Commands_Entity",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Entity_Product_Entity_productId",
+                        column: x => x.productId,
+                        principalTable: "Product_Entity",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_Entity_commandId",
+                table: "ProductDetails_Entity",
+                column: "commandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_Entity_productId",
+                table: "ProductDetails_Entity",
+                column: "productId",
+                unique: true,
+                filter: "[productId] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -70,6 +106,9 @@ namespace Restauranttablecontrolapi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Clients_Entity");
+
+            migrationBuilder.DropTable(
+                name: "ProductDetails_Entity");
 
             migrationBuilder.DropTable(
                 name: "Commands_Entity");

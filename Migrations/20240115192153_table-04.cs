@@ -11,15 +11,15 @@ namespace Restauranttablecontrolapi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Product_Entity_Commands_Entity_commandId",
+                name: "FK_Product_Entity_ProductDetails_Entity_productDetailId",
                 table: "Product_Entity");
 
             migrationBuilder.DropIndex(
-                name: "IX_Product_Entity_commandId",
+                name: "IX_Product_Entity_productDetailId",
                 table: "Product_Entity");
 
             migrationBuilder.DropColumn(
-                name: "commandId",
+                name: "productDetailId",
                 table: "Product_Entity");
         }
 
@@ -27,22 +27,22 @@ namespace Restauranttablecontrolapi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "commandId",
+                name: "productDetailId",
                 table: "Product_Entity",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Entity_commandId",
+                name: "IX_Product_Entity_productDetailId",
                 table: "Product_Entity",
-                column: "commandId");
+                column: "productDetailId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Product_Entity_Commands_Entity_commandId",
+                name: "FK_Product_Entity_ProductDetails_Entity_productDetailId",
                 table: "Product_Entity",
-                column: "commandId",
-                principalTable: "Commands_Entity",
+                column: "productDetailId",
+                principalTable: "ProductDetails_Entity",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

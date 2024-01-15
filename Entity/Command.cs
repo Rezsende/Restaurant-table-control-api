@@ -12,6 +12,12 @@ namespace Restaurant_table_control_api.Entity
         public int Id {get; set;}
         public string? Description {get; set;}
 
+        public List<ProductDetail> productDetails {get;set;}
+       
+  
+        
+
+
        
 
       

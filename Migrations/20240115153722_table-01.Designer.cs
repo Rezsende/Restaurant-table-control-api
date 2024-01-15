@@ -12,8 +12,8 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    [Migration("20240113134550_table-02")]
-    partial class table02
+    [Migration("20240115153722_table-01")]
+    partial class table01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,28 +110,60 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Product_Entity");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("commandId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("productId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("commandId");
 
-                    b.ToTable("Product_Entity");
+                    b.HasIndex("productId")
+                        .IsUnique()
+                        .HasFilter("[productId] IS NOT NULL");
+
+                    b.ToTable("ProductDetails_Entity");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
                 {
                     b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
-                        .WithMany("products")
+                        .WithMany("productDetails")
                         .HasForeignKey("commandId");
 
+                    b.HasOne("Restaurant_table_control_api.Entity.Product", "product")
+                        .WithOne("productDetail")
+                        .HasForeignKey("Restaurant_table_control_api.Entity.ProductDetail", "productId");
+
                     b.Navigation("command");
+
+                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
                 {
-                    b.Navigation("products");
+                    b.Navigation("productDetails");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
+                {
+                    b.Navigation("productDetail")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

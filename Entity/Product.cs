@@ -17,6 +17,10 @@ namespace Restaurant_table_control_api.Entity
         public int? Stock {get; set;}
         public DateTime? Expiration_Date {get;set;}
 
+
+
+    
+
        
 
      

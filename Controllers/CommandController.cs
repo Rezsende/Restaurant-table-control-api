@@ -21,8 +21,12 @@ namespace Restaurant_table_control_api.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public IActionResult CreateCommand([FromBody] CommandDTO_Create create)
+      
+         
+          [HttpPost]
+    public IActionResult CreateCommand([FromBody] CommandDTO_Create create)
+    {
+        try
         {
             var post = new Command
             {
@@ -34,6 +38,19 @@ namespace Restaurant_table_control_api.Controllers
 
             return Ok(post);
         }
+        catch (Exception ex)
+        {
+            return BadRequest($"Erro ao criar comando: {ex.Message}");
+        }
+    }
+
+    [HttpGet]
+    public IActionResult GetCommands()
+    {
+        var lista = _context.Commands_Entity.Include(pd=> pd.productDetails).ToList();
+        
+        return Ok(lista);
+    }
 
 
     }

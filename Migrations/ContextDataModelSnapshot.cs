@@ -76,12 +76,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductsID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductsID");
 
                     b.ToTable("Commands_Entity");
                 });
@@ -117,18 +112,51 @@ namespace Restauranttablecontrolapi.Migrations
                     b.ToTable("Product_Entity");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
                 {
-                    b.HasOne("Restaurant_table_control_api.Entity.Product", "Products")
-                        .WithMany("Commands")
-                        .HasForeignKey("ProductsID");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("Products");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Barcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataSales")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Qtd")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Sale_Price")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("commandId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("commandId");
+
+                    b.ToTable("ProductDetails_Entity");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDetail", b =>
                 {
-                    b.Navigation("Commands");
+                    b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
+                        .WithMany("productDetails")
+                        .HasForeignKey("commandId");
+
+                    b.Navigation("command");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
+                {
+                    b.Navigation("productDetails");
                 });
 #pragma warning restore 612, 618
         }

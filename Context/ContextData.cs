@@ -16,5 +16,7 @@ namespace Restaurant_table_control_api.Context
         public DbSet<Client> Clients_Entity { get; set; }
         public DbSet<Command> Commands_Entity { get; set; }
         public DbSet<Product> Product_Entity { get; set; }
+
+        public DbSet<ProductDetail> ProductDetails_Entity { get; set; }
     }
 }
