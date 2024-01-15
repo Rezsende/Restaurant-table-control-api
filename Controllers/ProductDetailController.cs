@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant_table_control_api.Context;
+using Restaurant_table_control_api.DTO;
+using Restaurant_table_control_api.Entity;
 
 namespace Restaurant_table_control_api.Controllers
 {
@@ -34,13 +36,30 @@ namespace Restaurant_table_control_api.Controllers
         
         }
 
+[HttpPost]
+public IActionResult addProductDetail([FromBody] ProductDatailDTO_post create)
+{
+    if (create == null)
+    {
+        return BadRequest("Invalid data received");
+    }
 
-     [HttpPost]
-     public IActionResult addProductDetail()
-     {
-        return Ok();
-     }
-  
+    var postcreate = new ProductDetail
+    {
+        Barcode = create.Barcode,
+        Description = create.Description,
+        Qtd = create.Qtd,
+        Sale_Price = create.Sale_Price,
+        DataSales = create.DataSales,
+        commandId = create.commandId
+    };
+
+    _context.Add(postcreate);
+    _context.SaveChanges();
+
+    return Ok(postcreate);
+}
+
   
   
     }
