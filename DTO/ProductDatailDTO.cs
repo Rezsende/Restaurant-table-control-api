@@ -12,6 +12,7 @@ namespace Restaurant_table_control_api.DTO
         public int? Qtd { get; set; }
         public double? Sale_Price { get; set; }
         public DateTime? DataSales { get; set; }
-         public int? commandId { get; set; }
+        public int? ProductId { get; set; }
+        public int? commandId { get; set; }
     }
 }

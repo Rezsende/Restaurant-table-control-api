@@ -45,7 +45,7 @@ public IActionResult addProductDetail([FromBody] ProductDatailDTO_post create)
     }
 
     var postcreate = new ProductDetail
-    {
+    {   ProductId = create.ProductId,
         Barcode = create.Barcode,
         Description = create.Description,
         Qtd = create.Qtd,

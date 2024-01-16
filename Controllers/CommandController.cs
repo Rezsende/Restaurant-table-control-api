@@ -23,7 +23,7 @@ namespace Restaurant_table_control_api.Controllers
 
       
          
-          [HttpPost]
+    [HttpPost]
     public IActionResult CreateCommand([FromBody] CommandDTO_Create create)
     {
         try
@@ -33,10 +33,16 @@ namespace Restaurant_table_control_api.Controllers
                 Description = create.Description
             };
 
+
+            var result = new {
+                Card = post,
+                Menssage = "Todos os Cards"
+            };
+
             _context.Add(post);
             _context.SaveChanges();
 
-            return Ok(post);
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -51,6 +57,42 @@ namespace Restaurant_table_control_api.Controllers
         
         return Ok(lista);
     }
+
+
+    [HttpPut("{id}")]
+public IActionResult UpdateCommand(int id, [FromBody] CommandDTO_Update update)
+{
+    try
+    {
+        var existingCommand = _context.Commands_Entity.Find(id);
+
+        if (existingCommand == null)
+        {
+            return NotFound("Comando não encontrado");
+        }
+
+       
+        existingCommand.Description = update.Description;
+
+        _context.Update(existingCommand);
+        _context.SaveChanges();
+
+        var result = new
+        {
+            Command = existingCommand,
+            Message = "Comando atualizado com sucesso"
+        };
+
+        return Ok(result);
+    }
+    catch (Exception ex)
+    {
+        return BadRequest($"Erro ao atualizar comando: {ex.Message}");
+    }
+}
+
+
+
 
 
     }
