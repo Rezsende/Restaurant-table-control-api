@@ -50,5 +50,22 @@ namespace Restaurant_table_control_api.Controllers
 
          return Ok(post);
       }
+   
+      [HttpDelete("{id}")]
+      public IActionResult DeletePro(int id)
+      {
+
+        var produto = _context.productDatails.Find(id);
+        if (produto == null)
+        {
+            return NotFound("Produto não encontrado");
+        }
+
+        _context.productDatails.Remove(produto);
+        _context.SaveChanges();
+
+        return Ok("Produto deletado com sucesso");
+      }
+   
    }
 }
