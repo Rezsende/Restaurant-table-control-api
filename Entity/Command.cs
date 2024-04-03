@@ -9,19 +9,13 @@ namespace Restaurant_table_control_api.Entity
 {
     public class Command
     {
-        public int Id {get; set;}
-        public string? Description {get; set;}
-        
-       
-  
+        public int Id { get; set; }
+        public string? Description { get; set; }
         
 
-
+        [JsonIgnore]
+        public RestaurantTable? restaurantTable { get; set; }
        
-
-      
-
-   
 
     }
 }

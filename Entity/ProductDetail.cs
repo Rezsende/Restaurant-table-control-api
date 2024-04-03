@@ -15,8 +15,7 @@ namespace Restaurant_table_control_api.Entity
         public int? Qtd { get; set; }
         public double? Sale_Price { get; set; }
         public DateTime? DataSales { get; set; }
-
-    
+        
       
     }
 }
