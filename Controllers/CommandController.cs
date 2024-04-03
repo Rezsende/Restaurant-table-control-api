@@ -48,7 +48,22 @@ namespace Restaurant_table_control_api.Controllers
                     c.Id,
                     c.Description,
                     restaurantTable = c.restaurantTable != null ? c.restaurantTable.Description : "",
-                    c.productDatails
+                    
+                    
+                     productDetails = c.productDatails.Select(pd => new
+                {
+                    pd.Id,
+                    pd.Barcode,
+                    pd.Description,
+                    pd.Qtd,
+                    pd.Sale_Price,
+                    TotalPrice = pd.Qtd * pd.Sale_Price, // Multiplicação da quantidade pelo preço de venda
+                    pd.date_Of_Sale,
+                    pd.commandId
+                })
+                    
+                    
+                    //c.productDatails
 
 
 
