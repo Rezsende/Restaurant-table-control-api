@@ -17,12 +17,6 @@ namespace Restaurant_table_control_api.Entity
         public DateTime? DataSales { get; set; }
 
     
-        [JsonIgnore]
-        public Product Product { get; set; }
-        public int? ProductId { get; set; }
-
-        [JsonIgnore]
-        public Command command { get; set; }
-        public int? commandId { get; set; }
+      
     }
 }
