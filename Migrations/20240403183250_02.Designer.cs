@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant_table_control_api.Context;
 
@@ -11,9 +12,11 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    partial class ContextDataModelSnapshot : ModelSnapshot
+    [Migration("20240403183250_02")]
+    partial class _02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,9 +133,6 @@ namespace Restauranttablecontrolapi.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Qtd")
-                        .HasColumnType("int");
 
                     b.Property<double?>("Sale_Price")
                         .HasColumnType("float");
