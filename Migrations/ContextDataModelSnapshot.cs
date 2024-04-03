@@ -112,12 +112,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
-                    b.Property<int?>("commandId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("commandId");
 
                     b.ToTable("Product_Entity");
                 });
@@ -133,7 +128,12 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("commandId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("commandId");
 
                     b.ToTable("productDatails");
                 });
@@ -163,13 +163,18 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Navigation("restaurantTable");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDatail", b =>
                 {
                     b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
-                        .WithMany()
+                        .WithMany("productDatails")
                         .HasForeignKey("commandId");
 
                     b.Navigation("command");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
+                {
+                    b.Navigation("productDatails");
                 });
 
             modelBuilder.Entity("Restaurant_table_control_api.Entity.RestaurantTable", b =>

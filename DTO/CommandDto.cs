@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Restaurant_table_control_api.DTO
 {
-    public class ProductDTO
+    public class CommandDto
     {
-         public string? Description {get; set;}
-        public int? commandId {get; set;}
+          public string? Description { get; set; }
     }
 }

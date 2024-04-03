@@ -12,8 +12,8 @@ using Restaurant_table_control_api.Context;
 namespace Restauranttablecontrolapi.Migrations
 {
     [DbContext(typeof(ContextData))]
-    [Migration("20240403153119_03")]
-    partial class _03
+    [Migration("20240403181425_01")]
+    partial class _01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,12 +115,7 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
-                    b.Property<int?>("commandId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("commandId");
 
                     b.ToTable("Product_Entity");
                 });
@@ -133,16 +128,15 @@ namespace Restauranttablecontrolapi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Barcode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Sale_Price")
-                        .HasColumnType("float");
+                    b.Property<int?>("commandId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("commandId");
 
                     b.ToTable("productDatails");
                 });
@@ -172,13 +166,18 @@ namespace Restauranttablecontrolapi.Migrations
                     b.Navigation("restaurantTable");
                 });
 
-            modelBuilder.Entity("Restaurant_table_control_api.Entity.Product", b =>
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.ProductDatail", b =>
                 {
                     b.HasOne("Restaurant_table_control_api.Entity.Command", "command")
-                        .WithMany()
+                        .WithMany("productDatails")
                         .HasForeignKey("commandId");
 
                     b.Navigation("command");
+                });
+
+            modelBuilder.Entity("Restaurant_table_control_api.Entity.Command", b =>
+                {
+                    b.Navigation("productDatails");
                 });
 
             modelBuilder.Entity("Restaurant_table_control_api.Entity.RestaurantTable", b =>

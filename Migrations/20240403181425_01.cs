@@ -34,6 +34,24 @@ namespace Restauranttablecontrolapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Product_Entity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PurchasePrice = table.Column<double>(name: "Purchase_Price", type: "float", nullable: true),
+                    SalePrice = table.Column<double>(name: "Sale_Price", type: "float", nullable: true),
+                    Stock = table.Column<int>(type: "int", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(name: "Expiration_Date", type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product_Entity", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RestaurantTable",
                 columns: table => new
                 {
@@ -66,24 +84,19 @@ namespace Restauranttablecontrolapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product_Entity",
+                name: "productDatails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PurchasePrice = table.Column<double>(name: "Purchase_Price", type: "float", nullable: true),
-                    SalePrice = table.Column<double>(name: "Sale_Price", type: "float", nullable: true),
-                    Stock = table.Column<int>(type: "int", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(name: "Expiration_Date", type: "datetime2", nullable: true),
                     commandId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product_Entity", x => x.Id);
+                    table.PrimaryKey("PK_productDatails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_Entity_Commands_Entity_commandId",
+                        name: "FK_productDatails_Commands_Entity_commandId",
                         column: x => x.commandId,
                         principalTable: "Commands_Entity",
                         principalColumn: "Id");
@@ -95,8 +108,8 @@ namespace Restauranttablecontrolapi.Migrations
                 column: "restaurantTableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_Entity_commandId",
-                table: "Product_Entity",
+                name: "IX_productDatails_commandId",
+                table: "productDatails",
                 column: "commandId");
         }
 
@@ -108,6 +121,9 @@ namespace Restauranttablecontrolapi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product_Entity");
+
+            migrationBuilder.DropTable(
+                name: "productDatails");
 
             migrationBuilder.DropTable(
                 name: "Commands_Entity");

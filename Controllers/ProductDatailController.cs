@@ -25,10 +25,22 @@ namespace Restaurant_table_control_api.Controllers
          {
       
             var post = new ProductDatail {
-              Description = cad.Description
+              Description = cad.Description,
+              commandId  = cad.commandId
             };
                _context.Add(post);
             _context.SaveChanges();
+
+            return Ok(post);
+         }
+
+           [HttpGet]
+         public IActionResult ListProdu()
+         {
+      
+            var post = _context.productDatails.ToList();
+            
+            
 
             return Ok(post);
          }
